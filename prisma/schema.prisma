@@ -1,0 +1,161 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String   @default("MEMBER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company            Company?
+  savedOpportunities SavedOpportunity[]
+  interests          OpportunityInterest[]
+  collaborations     CollaborationMember[]
+  messages           CollaborationMessage[]
+  submissions        Submission[]
+}
+
+model Company {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name               String
+  registrationNumber String
+  taxId              String
+  sector             String
+  foundingDate       String
+  email              String
+  phone              String
+  website            String?
+  address            String
+  city               String
+  country            String @default("Côte d'Ivoire")
+  ceoName            String
+  ceoEmail           String
+  ceoPhone           String
+  specialties        String?
+  equipment          String?
+  employees          Int?
+  geographicZone     String?
+  description        String?
+
+  subscriptionStatus String   @default("PENDING")
+  subscriptionExpiry DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Opportunity {
+  id              String   @id @default(cuid())
+  title           String
+  description     String
+  funder          String
+  sector          String
+  complexity      String
+  location        String?
+  budget          String?
+  closingDate     DateTime
+  requirements    String?
+  strategicAdvice String?
+  requiredDocs    String?
+  isPublished     Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  interests      OpportunityInterest[]
+  saved          SavedOpportunity[]
+  collaborations Collaboration[]
+  submissions    Submission[]
+}
+
+model OpportunityInterest {
+  id            String      @id @default(cuid())
+  userId        String
+  opportunityId String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+
+  @@unique([userId, opportunityId])
+}
+
+model SavedOpportunity {
+  id            String      @id @default(cuid())
+  userId        String
+  opportunityId String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+
+  @@unique([userId, opportunityId])
+}
+
+model Collaboration {
+  id            String      @id @default(cuid())
+  title         String
+  opportunityId String
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  status        String      @default("FORMING")
+  description   String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  members  CollaborationMember[]
+  messages CollaborationMessage[]
+}
+
+model CollaborationMember {
+  id              String        @id @default(cuid())
+  collaborationId String
+  userId          String
+  collaboration   Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isLead          Boolean       @default(false)
+  joinedAt        DateTime      @default(now())
+
+  @@unique([collaborationId, userId])
+}
+
+model CollaborationMessage {
+  id              String        @id @default(cuid())
+  collaborationId String
+  userId          String
+  collaboration   Collaboration @relation(fields: [collaborationId], references: [id], onDelete: Cascade)
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content         String
+  createdAt       DateTime      @default(now())
+}
+
+model Guide {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  category    String
+  fileUrl     String?
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+model Submission {
+  id            String      @id @default(cuid())
+  userId        String
+  opportunityId String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  status        String      @default("PREPARING")
+  result        String?
+  proofUrl      String?
+  notes         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}

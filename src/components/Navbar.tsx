@@ -78,6 +78,12 @@ export default function Navbar({ onOpenModal }: Props) {
                 <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
               </svg>
             </a>
+            <a
+              href="/login"
+              className="hidden md:flex items-center gap-1 font-['DM_Sans'] text-[12px] font-[600] tracking-[.06em] uppercase text-white/60 hover:text-[--gold] transition-colors duration-200"
+            >
+              Connexion
+            </a>
             <button onClick={onOpenModal} className="btn-gold text-[12px] py-[10px] px-[20px]">
               <span>Intégrer UNIE-BTP</span>
             </button>

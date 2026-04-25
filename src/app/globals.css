@@ -1,5 +1,49 @@
 @import "tailwindcss";
 
+/* ─── Platform / Dashboard — charte UNIE BTP (navy profond + orange #ed6120) ── */
+:root {
+  /* Backgrounds — palette navy du brand (cf. CLAUDE.md --night-*) */
+  --p-bg:       #070b14;   /* = --night */
+  --p-surface:  #0c1220;   /* légèrement plus clair */
+  --p-surface2: #111b33;   /* = --night-3 */
+  --p-surface3: #162040;   /* hover / sélection */
+
+  /* Bordures */
+  --p-border:   rgba(237,97,32,.10);   /* gold subtil */
+  --p-border2:  rgba(237,97,32,.22);   /* gold visible */
+  --p-border3:  rgba(255,255,255,.06); /* séparateurs neutres */
+
+  /* Texte */
+  --p-text:     #e8e4dc;   /* blanc chaud — cohérent landing */
+  --p-muted:    #7a8590;
+  --p-dim:      #404850;
+
+  /* Brand orange (= --primary du site) */
+  --p-gold:     #ed6120;
+  --p-gold-dim: rgba(237,97,32,.14);
+  --p-gold-mid: rgba(237,97,32,.28);
+
+  /* Sémantique */
+  --p-green:    #3da862;
+  --p-green-bg: rgba(61,168,98,.12);
+  --p-orange:   #d29922;
+  --p-orange-bg:rgba(210,153,34,.12);
+  --p-red:      #e05050;
+  --p-red-bg:   rgba(224,80,80,.12);
+  --p-blue:     #2a7fcc;
+  --p-blue-bg:  rgba(42,127,204,.12);
+
+  /* Typographie platform */
+  --p-font-display: 'Cormorant Garamond', Georgia, serif;
+  --p-font-ui:      'DM Sans', system-ui, sans-serif;
+  --p-font-mono:    'Bebas Neue', 'Arial Black', sans-serif;
+}
+
+/* Scrollbar dans les zones dark */
+.p-dark ::-webkit-scrollbar { width: 4px; }
+.p-dark ::-webkit-scrollbar-track { background: var(--p-bg); }
+.p-dark ::-webkit-scrollbar-thumb { background: var(--p-gold); border-radius: 2px; }
+
 :root {
   /* Brand palette (new) */
   --bg: #e2e8f2;

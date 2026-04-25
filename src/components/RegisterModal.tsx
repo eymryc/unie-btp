@@ -443,12 +443,27 @@ export default function RegisterModal({ open, onClose }: Props) {
     setStep(3);
   };
   const onStep3 = async (d: Step3) => {
-    setData((p) => ({ ...p, ...d }));
+    const payload = { ...data, ...d };
+    setData(payload);
     setLoading(true);
-    // Simulate API call
-    await new Promise((r) => setTimeout(r, 1800));
-    setLoading(false);
-    setDone(true);
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const err = await res.json();
+        alert(err.error ?? "Erreur lors de l'inscription. Réessayez.");
+        setLoading(false);
+        return;
+      }
+      setDone(true);
+    } catch {
+      alert("Erreur réseau. Réessayez.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!open) return null;
