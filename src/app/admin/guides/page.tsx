@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import TopBar from "@/components/platform/TopBar";
+import DataTable, { Column } from "@/components/platform/DataTable";
 
 interface Guide {
   id: string; title: string; description: string | null;
@@ -68,10 +69,123 @@ export default function AdminGuidesPage() {
 
   const inp: React.CSSProperties = { width: "100%", padding: "8px 10px", background: "var(--p-surface2)", border: "0.5px solid var(--p-border)", borderRadius: 6, fontSize: 13, color: "var(--p-text)", boxSizing: "border-box" };
 
-  const grouped = guides.reduce<Record<string, Guide[]>>((acc, g) => {
-    (acc[g.category] = acc[g.category] ?? []).push(g);
-    return acc;
-  }, {});
+  const columns: Column<Guide>[] = [
+    {
+      key: "title",
+      header: "Ressource",
+      render: (g) => (
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: "var(--p-text)" }}>{g.title}</div>
+          {g.description && <div style={{ fontSize: 11, color: "var(--p-muted)", marginTop: 2 }}>{g.description}</div>}
+          {g.fileUrl && <div style={{ fontSize: 10, color: "var(--p-gold)", marginTop: 2 }}>↗ Lien fichier défini</div>}
+        </div>
+      ),
+    },
+    {
+      key: "category",
+      header: "Catégorie",
+      width: 140,
+      render: (g) => (
+        <span style={{ fontSize: 11, color: "var(--p-muted)" }}>
+          {CAT_LABELS[g.category] ?? g.category}
+        </span>
+      ),
+    },
+    {
+      key: "status",
+      header: "Statut",
+      width: 100,
+      render: (g) => (
+        <span
+          style={{
+            fontSize: 10,
+            padding: "2px 8px",
+            borderRadius: 10,
+            background: g.isPublished ? "rgba(61,168,98,.12)" : "rgba(139,148,158,.1)",
+            color: g.isPublished ? "#6dd49a" : "var(--p-dim)",
+            border: `0.5px solid ${g.isPublished ? "rgba(61,168,98,.3)" : "rgba(139,148,158,.2)"}`,
+          }}
+        >
+          {g.isPublished ? "Publié" : "Masqué"}
+        </span>
+      ),
+    },
+    {
+      key: "file",
+      header: "Fichier",
+      width: 120,
+      render: (g) => (
+        <button
+          onClick={() => g.fileUrl ? window.open(g.fileUrl, "_blank") : alert("Aucun lien de fichier défini.")}
+          style={{
+            padding: "4px 8px",
+            fontSize: 10,
+            background: g.fileUrl ? "rgba(237,97,32,.10)" : "transparent",
+            border: "0.5px solid",
+            borderColor: g.fileUrl ? "rgba(237,97,32,.25)" : "var(--p-border)",
+            borderRadius: 6,
+            color: g.fileUrl ? "var(--p-gold)" : "var(--p-dim)",
+            cursor: "pointer",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {g.fileUrl ? "Ouvrir ↗" : "—"}
+        </button>
+      ),
+    },
+    {
+      key: "actions",
+      header: "Actions",
+      width: 190,
+      render: (g) => (
+        <div style={{ display: "flex", gap: 6 }}>
+          <button
+            onClick={() => togglePublish(g)}
+            style={{
+              padding: "4px 8px",
+              fontSize: 10,
+              background: "transparent",
+              border: "0.5px solid var(--p-border)",
+              borderRadius: 6,
+              color: "var(--p-muted)",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {g.isPublished ? "Masquer" : "Publier"}
+          </button>
+          <button
+            onClick={() => openEdit(g)}
+            style={{
+              padding: "4px 8px",
+              fontSize: 10,
+              background: "rgba(237,97,32,.1)",
+              border: "0.5px solid rgba(237,97,32,.25)",
+              borderRadius: 6,
+              color: "var(--p-gold)",
+              cursor: "pointer",
+            }}
+          >
+            Modifier
+          </button>
+          <button
+            onClick={() => handleDelete(g.id)}
+            style={{
+              padding: "4px 8px",
+              fontSize: 10,
+              background: "rgba(248,81,73,.08)",
+              border: "0.5px solid rgba(248,81,73,.2)",
+              borderRadius: 6,
+              color: "#f08080",
+              cursor: "pointer",
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -141,43 +255,16 @@ export default function AdminGuidesPage() {
           </button>
         </div>
       ) : (
-        Object.entries(grouped).map(([cat, items]) => (
-          <div key={cat} style={{ marginBottom: 20 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: ".1em", color: "var(--p-muted)", marginBottom: 8 }}>
-              {CAT_LABELS[cat] ?? cat} ({items.length})
-            </div>
-            <div style={{ background: "var(--p-surface)", border: "0.5px solid var(--p-border)", borderRadius: 10, overflow: "hidden" }}>
-              {items.map((g, i) => (
-                <div key={g.id} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", borderBottom: i < items.length - 1 ? "0.5px solid var(--p-border)" : "none" }}>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: 500, color: "var(--p-text)" }}>{g.title}</div>
-                    {g.description && <div style={{ fontSize: 11, color: "var(--p-muted)", marginTop: 2 }}>{g.description}</div>}
-                    {g.fileUrl && <div style={{ fontSize: 10, color: "var(--p-gold)", marginTop: 2 }}>↗ Lien fichier défini</div>}
-                  </div>
-                  <span style={{
-                    fontSize: 10, padding: "2px 8px", borderRadius: 10,
-                    background: g.isPublished ? "rgba(61,168,98,.12)" : "rgba(139,148,158,.1)",
-                    color: g.isPublished ? "#6dd49a" : "var(--p-dim)",
-                    border: `0.5px solid ${g.isPublished ? "rgba(61,168,98,.3)" : "rgba(139,148,158,.2)"}`,
-                  }}>
-                    {g.isPublished ? "Publié" : "Masqué"}
-                  </span>
-                  <div style={{ display: "flex", gap: 5 }}>
-                    <button onClick={() => togglePublish(g)} style={{ padding: "3px 8px", fontSize: 10, background: "transparent", border: "0.5px solid var(--p-border)", borderRadius: 4, color: "var(--p-muted)", cursor: "pointer" }}>
-                      {g.isPublished ? "Masquer" : "Publier"}
-                    </button>
-                    <button onClick={() => openEdit(g)} style={{ padding: "3px 8px", fontSize: 10, background: "rgba(237,97,32,.1)", border: "0.5px solid rgba(237,97,32,.25)", borderRadius: 4, color: "var(--p-gold)", cursor: "pointer" }}>
-                      Modifier
-                    </button>
-                    <button onClick={() => handleDelete(g.id)} style={{ padding: "3px 8px", fontSize: 10, background: "rgba(248,81,73,.08)", border: "0.5px solid rgba(248,81,73,.2)", borderRadius: 4, color: "#f08080", cursor: "pointer" }}>
-                      ✕
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))
+        <DataTable<Guide>
+          columns={columns}
+          data={guides}
+          loading={loading}
+          searchPlaceholder="Rechercher par titre, catégorie…"
+          searchFn={(g, q) => [g.title, g.description ?? "", g.category].some((v) => v?.toLowerCase().includes(q))}
+          pageSize={10}
+          emptyMessage="Aucune ressource."
+          getRowKey={(g) => g.id}
+        />
       )}
     </div>
   );

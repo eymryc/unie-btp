@@ -24,6 +24,7 @@ const ADMIN_NAV: NavItem[] = [
   { href: "/admin/dashboard",    icon: "⊞", label: "Tableau de bord" },
   { href: "/admin/membres",      icon: "◻", label: "Membres" },
   { href: "/admin/opportunites", icon: "◎", label: "Opportunités" },
+  { href: "/admin/soumissions",  icon: "◷", label: "Soumissions" },
   { href: "/admin/guides",       icon: "⊡", label: "Outils & Guides" },
   { href: "/admin/formations",   icon: "◈", label: "Formations" },
   { href: "/admin/reporting",    icon: "◈", label: "Reporting" },

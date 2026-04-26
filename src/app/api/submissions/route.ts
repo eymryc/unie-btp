@@ -6,15 +6,22 @@ export async function GET() {
   const session = await getServerSession();
   if (!session) return NextResponse.json({ error: "Non authentifié." }, { status: 401 });
 
+  const isAdmin = session.role === "ADMIN" || session.role === "SUPER_ADMIN";
+
   const subs = await prisma.submission.findMany({
-    where: { userId: session.userId },
-    include: { opportunity: { select: { title: true, funder: true } } },
+    where: isAdmin ? {} : { userId: session.userId },
+    include: {
+      opportunity: { select: { title: true, funder: true } },
+      user: isAdmin ? { include: { company: { select: { name: true } } } } : false,
+    },
     orderBy: { createdAt: "desc" },
   });
 
   return NextResponse.json(
     subs.map((s) => ({
       id: s.id,
+      userId: isAdmin ? s.userId : undefined,
+      companyName: isAdmin ? (s.user?.company?.name ?? null) : undefined,
       opportunityId: s.opportunityId,
       opportunityTitle: s.opportunity.title,
       funder: s.opportunity.funder,

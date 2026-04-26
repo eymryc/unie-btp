@@ -174,6 +174,8 @@ model TrainingSession {
   isPublished Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  accompagnementRequests AccompagnementRequest[]
 }
 
 model Submission {
@@ -196,6 +198,8 @@ model AccompagnementRequest {
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   opportunityId String?
+  trainingSessionId String?
+  trainingSession   TrainingSession? @relation(fields: [trainingSessionId], references: [id], onDelete: SetNull)
   type        String   // "dossier" | "strategie" | "formation" | "autre"
   message     String
   status      String   @default("PENDING") // PENDING | PROCESSING | DONE

@@ -4,7 +4,6 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import ComplexityBadge from "@/components/platform/ComplexityBadge";
 import TopBar from "@/components/platform/TopBar";
-import DataTable, { Column } from "@/components/platform/DataTable";
 
 interface Opp {
   id: string;
@@ -75,110 +74,6 @@ export default function OpportunitesPage() {
     cursor: "pointer",
   };
 
-  const columns: Column<Opp>[] = [
-    {
-      key: "complexity",
-      header: "",
-      width: 24,
-      render: (o) => <ComplexityBadge complexity={o.complexity} />,
-    },
-    {
-      key: "title",
-      header: "Opportunité",
-      render: (o) => (
-        <div>
-          <div style={{ fontWeight: 500, color: "var(--p-text)", marginBottom: 4 }}>{o.title}</div>
-          <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 8, background: "rgba(56,139,253,.1)", color: "#79b8ff", border: "0.5px solid rgba(56,139,253,.3)" }}>{o.funder}</span>
-            <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 8, background: "rgba(46,160,67,.08)", color: "#6dd49a", border: "0.5px solid rgba(46,160,67,.25)" }}>{o.sector}</span>
-            {o.budget && (
-              <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 8, background: "rgba(237,97,32,.08)", color: "var(--p-gold)", border: "0.5px solid rgba(237,97,32,.2)" }}>{o.budget}</span>
-            )}
-            {o.location && (
-              <span style={{ fontSize: 10, color: "var(--p-dim)" }}>📍 {o.location}</span>
-            )}
-          </div>
-        </div>
-      ),
-    },
-    {
-      key: "complexity_label",
-      header: "Complexité",
-      width: 160,
-      render: (o) => <ComplexityBadge complexity={o.complexity} showLabel />,
-    },
-    {
-      key: "closingDate",
-      header: "Clôture",
-      width: 120,
-      render: (o) => {
-        const days = daysUntil(o.closingDate);
-        const urgent = days <= 10;
-        return (
-          <div>
-            <div style={{ fontSize: 12, color: urgent ? "#f08080" : "var(--p-text)", fontWeight: urgent ? 600 : 400 }}>
-              {new Date(o.closingDate).toLocaleDateString("fr-FR")}
-            </div>
-            <div style={{ fontSize: 10, color: urgent ? "#f08080" : "var(--p-dim)" }}>
-              {days <= 0 ? "Clôturé" : `J-${days}`}
-            </div>
-          </div>
-        );
-      },
-    },
-    {
-      key: "interests",
-      header: "Intérêts",
-      width: 80,
-      render: (o) => (
-        <span style={{ fontSize: 12, color: "var(--p-muted)" }}>
-          {o.interestCount}
-        </span>
-      ),
-    },
-    {
-      key: "actions",
-      header: "Actions",
-      width: 180,
-      render: (o) => (
-        <div style={{ display: "flex", gap: 5 }}>
-          <button
-            onClick={(e) => { e.stopPropagation(); toggleInterest(o.id); }}
-            title={o.isInterested ? "Retirer l'intérêt" : "Je suis intéressé"}
-            style={{
-              padding: "4px 9px", fontSize: 11,
-              background: o.isInterested ? "rgba(237,97,32,.2)" : "transparent",
-              border: "0.5px solid",
-              borderColor: o.isInterested ? "rgba(237,97,32,.4)" : "var(--p-border)",
-              borderRadius: 4, color: o.isInterested ? "var(--p-gold)" : "var(--p-muted)", cursor: "pointer",
-              fontWeight: o.isInterested ? 600 : 400,
-            }}
-          >
-            {o.isInterested ? "✓ Intéressé" : "Intéressé"}
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); toggleSave(o.id); }}
-            title={o.isSaved ? "Retirer des sauvegardes" : "Sauvegarder"}
-            style={{
-              padding: "4px 8px", fontSize: 12,
-              background: o.isSaved ? "rgba(237,97,32,.15)" : "transparent",
-              border: "0.5px solid var(--p-border)",
-              borderRadius: 4, color: o.isSaved ? "var(--p-gold)" : "var(--p-muted)", cursor: "pointer",
-            }}
-          >
-            {o.isSaved ? "★" : "☆"}
-          </button>
-          <button
-            onClick={() => router.push(`/membre/opportunites/${o.id}`)}
-            style={{ padding: "4px 9px", fontSize: 11, background: "rgba(237,97,32,.12)", border: "0.5px solid rgba(237,97,32,.3)", borderRadius: 4, color: "var(--p-gold)", cursor: "pointer" }}
-          >
-            Voir →
-          </button>
-        </div>
-      ),
-    },
-  ];
-
   return (
     <div>
       <TopBar
@@ -208,19 +103,119 @@ export default function OpportunitesPage() {
         </select>
       </div>
 
-      <DataTable<Opp>
-        columns={columns}
-        data={opps}
-        loading={loading}
-        searchPlaceholder="Rechercher par titre, bailleur, secteur, localisation…"
-        searchFn={(o, q) =>
-          [o.title, o.funder, o.sector, o.location, o.budget]
-            .some((v) => v?.toLowerCase().includes(q))
-        }
-        pageSize={10}
-        emptyMessage="Aucune opportunité disponible avec ces filtres."
-        getRowKey={(o) => o.id}
-      />
+      {loading ? (
+        <div style={{ color: "var(--p-dim)", fontSize: 12 }}>Chargement…</div>
+      ) : opps.length === 0 ? (
+        <div style={{ color: "var(--p-dim)", fontSize: 12, padding: "10px 0" }}>Aucune opportunité disponible avec ces filtres.</div>
+      ) : (
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(320px,1fr))", gap: 10 }}>
+          {opps.map((o) => {
+            const days = daysUntil(o.closingDate);
+            const urgent = days <= 10;
+            return (
+              <div
+                key={o.id}
+                onClick={() => router.push(`/membre/opportunites/${o.id}`)}
+                style={{
+                  background: "var(--p-surface)",
+                  border: "0.5px solid var(--p-border)",
+                  borderRadius: 12,
+                  padding: 16,
+                  cursor: "pointer",
+                  transition: "transform .12s ease, border-color .12s ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--p-border2)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--p-border)";
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginBottom: 10 }}>
+                  <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                    <ComplexityBadge complexity={o.complexity} />
+                    <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 8, background: "rgba(56,139,253,.1)", color: "#79b8ff", border: "0.5px solid rgba(56,139,253,.3)" }}>
+                      {o.funder}
+                    </span>
+                    <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 8, background: "rgba(46,160,67,.08)", color: "#6dd49a", border: "0.5px solid rgba(46,160,67,.25)" }}>
+                      {o.sector}
+                    </span>
+                  </div>
+                  <div style={{ textAlign: "right" }}>
+                    <div style={{ fontSize: 11, color: urgent ? "#f08080" : "var(--p-text)", fontWeight: urgent ? 700 : 500 }}>
+                      {new Date(o.closingDate).toLocaleDateString("fr-FR")}
+                    </div>
+                    <div style={{ fontSize: 10, color: urgent ? "#f08080" : "var(--p-dim)" }}>
+                      {days <= 0 ? "Clôturé" : `J-${days}`}
+                    </div>
+                  </div>
+                </div>
+
+                <div style={{ fontSize: 14, fontWeight: 600, color: "var(--p-text)", marginBottom: 8, lineHeight: 1.25 }}>
+                  {o.title}
+                </div>
+
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center", marginBottom: 12 }}>
+                  {o.budget && (
+                    <span style={{ fontSize: 10, padding: "1px 6px", borderRadius: 8, background: "rgba(237,97,32,.08)", color: "var(--p-gold)", border: "0.5px solid rgba(237,97,32,.2)" }}>
+                      {o.budget}
+                    </span>
+                  )}
+                  {o.location && (
+                    <span style={{ fontSize: 10, color: "var(--p-dim)" }}>📍 {o.location}</span>
+                  )}
+                  <span style={{ fontSize: 10, color: "var(--p-dim)" }}>
+                    {o.interestCount} intérêt{o.interestCount !== 1 ? "s" : ""}
+                  </span>
+                </div>
+
+                <div style={{ display: "flex", gap: 6 }}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleInterest(o.id);
+                    }}
+                    style={{
+                      padding: "6px 10px",
+                      fontSize: 11,
+                      background: o.isInterested ? "rgba(237,97,32,.2)" : "transparent",
+                      border: "0.5px solid",
+                      borderColor: o.isInterested ? "rgba(237,97,32,.4)" : "var(--p-border)",
+                      borderRadius: 6,
+                      color: o.isInterested ? "var(--p-gold)" : "var(--p-muted)",
+                      cursor: "pointer",
+                      fontWeight: o.isInterested ? 700 : 500,
+                      flex: 1,
+                    }}
+                  >
+                    {o.isInterested ? "✓ Intéressé" : "Intéressé"}
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleSave(o.id);
+                    }}
+                    style={{
+                      padding: "6px 10px",
+                      fontSize: 11,
+                      background: o.isSaved ? "rgba(237,97,32,.15)" : "transparent",
+                      border: "0.5px solid var(--p-border)",
+                      borderRadius: 6,
+                      color: o.isSaved ? "var(--p-gold)" : "var(--p-muted)",
+                      cursor: "pointer",
+                      width: 60,
+                    }}
+                  >
+                    {o.isSaved ? "★" : "☆"}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

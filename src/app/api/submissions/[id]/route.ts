@@ -10,7 +10,8 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
   const { status, result, notes } = await req.json();
 
   const sub = await prisma.submission.findUnique({ where: { id } });
-  if (!sub || sub.userId !== session.userId) {
+  const isAdmin = session.role === "ADMIN" || session.role === "SUPER_ADMIN";
+  if (!sub || (!isAdmin && sub.userId !== session.userId)) {
     return NextResponse.json({ error: "Non autorisé." }, { status: 403 });
   }
 
