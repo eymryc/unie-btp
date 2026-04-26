@@ -20,3 +20,5 @@ pnpm-debug.log*
 
 
 /src/generated/prisma
+.vercel
+.env*.local
