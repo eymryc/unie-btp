@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import TopBar from "@/components/platform/TopBar";
 
 interface PublicProfile {
   name: string; sector: string; city: string; country: string;
@@ -61,6 +60,17 @@ export default function MemberProfilePage() {
           )}
         </div>
       </div>
+
+      {/* État vide — profil non encore complété */}
+      {!profile.description && !profile.specialties && !profile.employees && !profile.references.length && !profile.equipment && (
+        <div style={{ background: "var(--p-surface)", border: "0.5px solid var(--p-border)", borderRadius: 10, padding: "32px 24px", marginBottom: 14, textAlign: "center" }}>
+          <div style={{ fontSize: 24, marginBottom: 8, opacity: .3 }}>◻</div>
+          <div style={{ fontSize: 13, color: "var(--p-muted)", marginBottom: 4 }}>Profil en cours de complétion</div>
+          <p style={{ fontSize: 12, color: "var(--p-dim)", maxWidth: 360, margin: "0 auto" }}>
+            Ce membre n'a pas encore renseigné ses capacités techniques, spécialités ou références projets.
+          </p>
+        </div>
+      )}
 
       {profile.description && card("Présentation", (
         <p style={{ fontSize: 13, color: "var(--p-text)", lineHeight: 1.7, margin: 0 }}>{profile.description}</p>

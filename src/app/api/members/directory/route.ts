@@ -10,7 +10,10 @@ export async function GET(req: NextRequest) {
   const sector = searchParams.get("sector");
   const availability = searchParams.get("availability");
 
-  const where: Record<string, unknown> = { subscriptionStatus: "ACTIVE" };
+  const where: Record<string, unknown> = {
+    subscriptionStatus: "ACTIVE",
+    user: { role: "MEMBER" },
+  };
   if (sector) where.sector = sector;
   if (availability) where.availability = availability;
 

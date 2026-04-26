@@ -55,6 +55,16 @@ export default function OutilsPage() {
 
       {loading ? (
         <div style={{ color: "var(--p-dim)", fontSize: 12 }}>Chargement…</div>
+      ) : guides.length === 0 ? (
+        <div style={{ background: "var(--p-surface)", border: "0.5px solid var(--p-border)", borderRadius: 10, padding: "40px 24px", textAlign: "center", marginBottom: 20 }}>
+          <div style={{ fontSize: 28, marginBottom: 8, opacity: .3 }}>⊡</div>
+          <div style={{ fontSize: 14, color: "var(--p-muted)", marginBottom: 6 }}>Aucune ressource disponible pour l'instant</div>
+          <p style={{ fontSize: 12, color: "var(--p-dim)", maxWidth: 400, margin: "0 auto" }}>
+            L'équipe UNIE BTP prépare des checklists, modèles de mémoire technique et guides BAD/BM/AFD. Ils seront disponibles ici dès leur publication.
+          </p>
+        </div>
+      ) : filtered.length === 0 ? (
+        <div style={{ color: "var(--p-dim)", fontSize: 12, padding: "20px 0" }}>Aucune ressource dans cette catégorie.</div>
       ) : (
         Object.entries(grouped).map(([cat, items]) => {
           const cfg = CATEGORY_LABELS[cat] ?? { label: cat, icon: "◻", color: "var(--p-muted)", bg: "var(--p-surface2)" };
