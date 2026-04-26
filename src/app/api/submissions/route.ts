@@ -12,7 +12,7 @@ export async function GET() {
     where: isAdmin ? {} : { userId: session.userId },
     include: {
       opportunity: { select: { title: true, funder: true } },
-      user: isAdmin ? { include: { company: { select: { name: true } } } } : false,
+      user: { include: { company: { select: { name: true } } } },
     },
     orderBy: { createdAt: "desc" },
   });
