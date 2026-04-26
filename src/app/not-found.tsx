@@ -9,7 +9,7 @@ export default function NotFound() {
       <p className="text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-3">
         404
       </p>
-      <h1 className="font-['Cormorant_Garamond'] text-[44px] leading-[1.1] font-semibold mb-4">
+      <h1 className="font-['Rajdhani'] text-[44px] leading-[1.1] font-semibold mb-4">
         Page introuvable
       </h1>
       <p className="text-[15px] max-w-[520px]" style={{ color: "var(--text-muted)" }}>

@@ -34,9 +34,9 @@
   --p-blue-bg:  rgba(42,127,204,.12);
 
   /* Typographie platform */
-  --p-font-display: 'Cormorant Garamond', Georgia, serif;
-  --p-font-ui:      'DM Sans', system-ui, sans-serif;
-  --p-font-mono:    'Bebas Neue', 'Arial Black', sans-serif;
+  --p-font-display: 'Rajdhani', system-ui, sans-serif;
+  --p-font-ui:      'Rajdhani', system-ui, sans-serif;
+  --p-font-mono:    'Rajdhani', system-ui, sans-serif;
 }
 
 /* Scrollbar dans les zones dark */
@@ -84,7 +84,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: 'Rajdhani', system-ui, sans-serif;
   background: var(--bg);
   color: var(--ink);
   overflow-x: hidden;
@@ -115,7 +115,7 @@ body {
 .btn-gold{
   display:inline-flex;align-items:center;gap:8px;
   padding:13px 30px;background:var(--primary);color:#fff;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;
+  font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;
   letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
   border:none;border-radius:var(--radius-sm);
   cursor:pointer;position:relative;overflow:hidden;
@@ -135,7 +135,7 @@ body {
 .btn-outline{
   display:inline-flex;align-items:center;gap:8px;
   padding:12px 30px;background:rgba(255,255,255,.03);color:#fff;
-  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;
+  font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;
   letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
   border:1.5px solid rgba(255,255,255,.28);
   border-radius:var(--radius-sm);
@@ -145,6 +145,28 @@ body {
 }
 .btn-outline:hover{border-color:rgba(237,97,32,.65);color:#fff;background:rgba(255,255,255,.06);}
 .btn-outline:focus-visible{outline:3px solid rgba(237,97,32,.25);outline-offset:3px;}
+
+/* Texture grille pour sections sombres (remplace le Three.js) */
+.grid-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(237,97,32,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(237,97,32,.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.grid-texture-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(15,23,42,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,23,42,.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
 
 /* Scrollbar (Safari/Chrome) */
 ::-webkit-scrollbar{width:5px;}

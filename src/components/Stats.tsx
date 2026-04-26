@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import BTPBlueprint3D from "@/components/BTPBlueprint3D";
 
 function CountUp({ end, suffix="" }: { end:number; suffix?:string }) {
   const [count, setCount] = useState(0);
@@ -43,24 +42,24 @@ export default function Stats() {
   }, []);
 
   return (
-    <section ref={ref} className="py-[100px] relative overflow-hidden" style={{ background:"linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%)" }}>
-      <BTPBlueprint3D opacity={0.22} intensity={0.65} className="z-[1]" />
+    <section ref={ref} className="py-[100px] relative overflow-hidden" style={{ background:"linear-gradient(135deg,var(--night-2) 0%,var(--night-3) 100%)" }}>
+      <div className="grid-texture" />
       <div className="absolute inset-0 z-0" style={{ background:"radial-gradient(circle at 20% 50%,rgba(237,97,32,.10) 0%,transparent 50%),radial-gradient(circle at 80% 50%,rgba(237,97,32,.08) 0%,transparent 50%)" }}/>
       <div className="max-w-[1280px] mx-auto px-10 relative z-[1]">
         <div className="text-center mb-[72px]">
           <p className="reveal text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-4">Notre impact</p>
-          <h2 className="reveal font-['Cormorant_Garamond'] font-semibold text-white leading-[1.1]" style={{ fontSize:"clamp(36px,5vw,52px)" }}>
+          <h2 className="reveal font-['Rajdhani'] font-semibold text-white leading-[1.1]" style={{ fontSize:"clamp(36px,5vw,52px)" }}>
             UNIE-BTP en Chiffres
           </h2>
         </div>
         <div className="grid grid-cols-4 gap-px stats-grid" style={{ background:"rgba(237,97,32,.18)" }}>
           {STATS.map((s,i) => (
             <div key={s.label} className="reveal bg-[rgba(255,255,255,.03)] py-12 px-9 text-center" style={{ transitionDelay:`${i*.1}s` }}>
-              <div className="font-['Cormorant_Garamond'] font-semibold text-[--gold] leading-none mb-4" style={{ fontSize:"clamp(52px,6vw,72px)" }}>
+              <div className="font-['Rajdhani'] font-semibold text-[--gold] leading-none mb-4" style={{ fontSize:"clamp(52px,6vw,72px)" }}>
                 <CountUp end={s.value} suffix={s.suffix}/>
               </div>
-              <div className="font-['DM_Sans'] text-[14px] font-semibold text-white mb-2 tracking-[.02em]">{s.label}</div>
-              <div className="font-['DM_Sans'] text-[13px] text-white/35 leading-[1.5]">{s.desc}</div>
+              <div className="font-['Rajdhani'] text-[14px] font-semibold text-white mb-2 tracking-[.02em]">{s.label}</div>
+              <div className="font-['Rajdhani'] text-[13px] text-white/35 leading-[1.5]">{s.desc}</div>
             </div>
           ))}
         </div>

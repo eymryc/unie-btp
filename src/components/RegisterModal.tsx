@@ -95,7 +95,7 @@ function Input({
       {...props}
       {...register}
       className={[
-        "w-full px-4 py-3 rounded-sm border text-[14px] font-['DM_Sans'] text-[--navy]",
+        "w-full px-4 py-3 rounded-sm border text-[14px] font-['Rajdhani'] text-[--navy]",
         "placeholder:text-[#b0bac6] bg-white outline-none transition-all duration-200",
         error
           ? "border-red-400 focus:border-red-500"
@@ -121,7 +121,7 @@ function Select({
     <select
       {...register}
       className={[
-        "w-full px-4 py-3 rounded-sm border text-[14px] font-['DM_Sans'] text-[--navy] bg-white",
+        "w-full px-4 py-3 rounded-sm border text-[14px] font-['Rajdhani'] text-[--navy] bg-white",
         "outline-none transition-all duration-200 cursor-pointer appearance-none",
         error
           ? "border-red-400 focus:border-red-500"
@@ -368,7 +368,7 @@ function SuccessScreen({ onClose }: { onClose: () => void }) {
         </svg>
       </div>
       <div>
-        <h3 className="font-['Cormorant_Garamond'] text-[32px] font-semibold text-[--navy] mb-3">
+        <h3 className="font-['Rajdhani'] text-[32px] font-semibold text-[--navy] mb-3">
           Demande soumise avec succès
         </h3>
         <p className="text-[15px] text-[#718096] leading-relaxed max-w-[420px] text-justify">
@@ -506,7 +506,7 @@ export default function RegisterModal({ open, onClose }: Props) {
                 <p className="text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-2">
                   Adhésion UNIE-BTP
                 </p>
-                <h2 className="font-['Cormorant_Garamond'] text-[32px] font-semibold text-[--navy] leading-tight mb-5">
+                <h2 className="font-['Rajdhani'] text-[32px] font-semibold text-[--navy] leading-tight mb-5">
                   Enregistrez votre entreprise
                 </h2>
                 <ProgressBar step={step} />

@@ -49,8 +49,8 @@ export default function Navbar({ onOpenModal }: Props) {
               <circle cx="20" cy="20" r="2.5" fill="var(--gold)"/>
             </svg>
             <div className="text-left">
-              <div className="font-['Bebas_Neue'] text-[22px] tracking-[.1em] text-white leading-none">UNIE-BTP</div>
-              <div className="font-['DM_Sans'] text-[9px] tracking-[.15em] text-[--gold] uppercase leading-none mt-0.5">Unis pour construire</div>
+              <div className="font-['Rajdhani'] text-[22px] tracking-[.1em] text-white leading-none">UNIE-BTP</div>
+              <div className="font-['Rajdhani'] text-[9px] tracking-[.15em] text-[--gold] uppercase leading-none mt-0.5">Unis pour construire</div>
             </div>
           </button>
 
@@ -60,7 +60,7 @@ export default function Navbar({ onOpenModal }: Props) {
               <button
                 key={l.id}
                 onClick={() => scrollTo(l.id)}
-                className="font-['DM_Sans'] text-[12px] font-[600] tracking-[.06em] uppercase text-white/70 hover:text-[--gold] transition-colors duration-200 bg-transparent border-none cursor-pointer"
+                className="font-['Rajdhani'] text-[12px] font-[600] tracking-[.06em] uppercase text-white/70 hover:text-[--gold] transition-colors duration-200 bg-transparent border-none cursor-pointer"
               >
                 {l.label}
               </button>
@@ -80,7 +80,7 @@ export default function Navbar({ onOpenModal }: Props) {
             </a>
             <a
               href="/login"
-              className="hidden md:flex items-center gap-1 font-['DM_Sans'] text-[12px] font-[600] tracking-[.06em] uppercase text-white/60 hover:text-[--gold] transition-colors duration-200"
+              className="hidden md:flex items-center gap-1 font-['Rajdhani'] text-[12px] font-[600] tracking-[.06em] uppercase text-white/60 hover:text-[--gold] transition-colors duration-200"
             >
               Connexion
             </a>
@@ -108,7 +108,7 @@ export default function Navbar({ onOpenModal }: Props) {
             <button
               key={l.id}
               onClick={() => scrollTo(l.id)}
-              className="font-['Cormorant_Garamond'] text-[40px] font-[600] text-white/90 hover:text-[--gold] transition-colors bg-transparent border-none cursor-pointer"
+              className="font-['Rajdhani'] text-[40px] font-[600] text-white/90 hover:text-[--gold] transition-colors bg-transparent border-none cursor-pointer"
             >
               {l.label}
             </button>

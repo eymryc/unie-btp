@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import BTPBlueprint3D from "@/components/BTPBlueprint3D";
 
 export default function Contact() {
   const ref = useRef<HTMLDivElement>(null);
@@ -17,22 +16,21 @@ export default function Contact() {
 
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement|HTMLTextAreaElement>) => setForm(p => ({ ...p, [k]: e.target.value }));
 
-  const inputCls = "w-full px-4 py-3 border border-[--border] rounded-sm font-['DM_Sans'] text-[14px] text-[--navy] placeholder:text-[#b0bac6] bg-white outline-none transition-colors duration-200 focus:border-[--gold]";
-  const labelCls = "block font-['DM_Sans'] text-[11px] font-bold tracking-[.14em] uppercase text-[#a0aec0] mb-2";
+  const inputCls = "w-full px-4 py-3 border border-[--border] rounded-sm font-['Rajdhani'] text-[14px] text-[--navy] placeholder:text-[#b0bac6] bg-white outline-none transition-colors duration-200 focus:border-[--gold]";
+  const labelCls = "block font-['Rajdhani'] text-[11px] font-bold tracking-[.14em] uppercase text-[#a0aec0] mb-2";
 
   return (
     <section id="contact" ref={ref} className="bg-white py-[120px] relative overflow-hidden">
-      <BTPBlueprint3D opacity={0.14} intensity={0.55} className="z-0" />
       <div className="max-w-[1280px] mx-auto px-10">
         <div className="grid grid-cols-2 gap-20 contact-grid">
 
           {/* Left */}
           <div>
             <p className="reveal text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-4">Rejoindre l&apos;union</p>
-            <h2 className="reveal font-['Cormorant_Garamond'] font-semibold text-[--navy] leading-[1.1] mb-7" style={{ fontSize:"clamp(36px,5vw,56px)" }}>
+            <h2 className="reveal font-['Rajdhani'] font-semibold text-[--navy] leading-[1.1] mb-7" style={{ fontSize:"clamp(36px,5vw,56px)" }}>
               Contactez<br/><span className="text-[--gold] italic">UNIE-BTP</span>
             </h2>
-            <p className="reveal font-['DM_Sans'] text-[16px] text-[#718096] leading-[1.8] mb-12 text-justify">
+            <p className="reveal font-['Rajdhani'] text-[16px] text-[#718096] leading-[1.8] mb-12 text-justify">
               Rejoignez la communauté des entrepreneurs BTP les plus engagés de Côte d&apos;Ivoire.
               Ensemble, nous bâtissons un secteur plus fort, plus juste et plus prospère.
             </p>
@@ -48,8 +46,8 @@ export default function Contact() {
                     <svg width="17" height="17" fill="none" stroke="var(--gold)" strokeWidth="2" viewBox="0 0 24 24">{item.icon}</svg>
                   </div>
                   <div>
-                    <div className="font-['DM_Sans'] text-[11px] font-bold tracking-[.1em] uppercase text-[#a0aec0] mb-0.5">{item.label}</div>
-                    <div className="font-['DM_Sans'] text-[15px] text-[--navy] font-[500]">{item.value}</div>
+                    <div className="font-['Rajdhani'] text-[11px] font-bold tracking-[.1em] uppercase text-[#a0aec0] mb-0.5">{item.label}</div>
+                    <div className="font-['Rajdhani'] text-[15px] text-[--navy] font-[500]">{item.value}</div>
                   </div>
                 </div>
               ))}
@@ -57,7 +55,7 @@ export default function Contact() {
 
             <div className="reveal flex gap-3">
               {["Facebook","LinkedIn","Twitter"].map(s => (
-                <a key={s} href="#" className="font-['DM_Sans'] text-[12px] font-bold tracking-[.08em] uppercase text-[--navy] no-underline px-[18px] py-[10px] border-[1.5px] border-[--border] rounded-sm transition-all duration-200 hover:border-[--gold] hover:text-[--gold]">
+                <a key={s} href="#" className="font-['Rajdhani'] text-[12px] font-bold tracking-[.08em] uppercase text-[--navy] no-underline px-[18px] py-[10px] border-[1.5px] border-[--border] rounded-sm transition-all duration-200 hover:border-[--gold] hover:text-[--gold]">
                   {s}
                 </a>
               ))}
@@ -71,8 +69,8 @@ export default function Contact() {
                 <div className="w-16 h-16 mx-auto mb-6 bg-[color:var(--gold-pale)] border-2 border-[--gold] rounded-full flex items-center justify-center">
                   <svg width="28" height="28" fill="none" stroke="var(--gold)" strokeWidth="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5" strokeLinecap="round"/></svg>
                 </div>
-                <h3 className="font-['Cormorant_Garamond'] text-[32px] font-semibold text-[--navy] mb-4">Message envoyé</h3>
-                <p className="font-['DM_Sans'] text-[15px] text-[#718096] leading-[1.7] text-justify">
+                <h3 className="font-['Rajdhani'] text-[32px] font-semibold text-[--navy] mb-4">Message envoyé</h3>
+                <p className="font-['Rajdhani'] text-[15px] text-[#718096] leading-[1.7] text-justify">
                   Notre équipe vous contactera dans les 24 heures ouvrables pour discuter de votre adhésion à UNIE-BTP.
                 </p>
               </div>
@@ -82,8 +80,8 @@ export default function Contact() {
                 className="bg-[--bg] border border-[--border] border-t-[4px] border-t-[--gold] p-12 rounded-sm"
               >
                 <div className="mb-8">
-                  <h3 className="font-['Cormorant_Garamond'] text-[28px] font-semibold text-[--navy] mb-2">Formulaire de contact</h3>
-                  <p className="font-['DM_Sans'] text-[14px] text-[#718096]">Remplissez ce formulaire et nous vous recontactons rapidement.</p>
+                  <h3 className="font-['Rajdhani'] text-[28px] font-semibold text-[--navy] mb-2">Formulaire de contact</h3>
+                  <p className="font-['Rajdhani'] text-[14px] text-[#718096]">Remplissez ce formulaire et nous vous recontactons rapidement.</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 mb-4">

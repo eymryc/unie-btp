@@ -49,7 +49,7 @@ function LoginForm() {
     border: "0.5px solid rgba(237,97,32,.2)",
     borderRadius: 7,
     fontSize: 13,
-    fontFamily: "'DM Sans', system-ui, sans-serif",
+    fontFamily: "'Rajdhani', system-ui, sans-serif",
     color: "#e8e4dc",
     outline: "none",
     boxSizing: "border-box",
@@ -65,7 +65,7 @@ function LoginForm() {
         alignItems: "center",
         justifyContent: "center",
         padding: 20,
-        fontFamily: "'DM Sans', system-ui, sans-serif",
+        fontFamily: "'Rajdhani', system-ui, sans-serif",
         backgroundImage: "linear-gradient(rgba(237,97,32,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(237,97,32,.03) 1px,transparent 1px)",
         backgroundSize: "64px 64px",
       }}
@@ -93,7 +93,7 @@ function LoginForm() {
                 <span style={{
                   background: "#ed6120",
                   color: "#fff",
-                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontFamily: "'Rajdhani', sans-serif",
                   fontSize: 15,
                   letterSpacing: "1.5px",
                   padding: "4px 10px",
@@ -102,7 +102,7 @@ function LoginForm() {
                   UNIE
                 </span>
                 <div style={{ textAlign: "left" }}>
-                  <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: ".12em", color: "#e8e4dc", lineHeight: 1 }}>
+                  <div style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: 20, letterSpacing: ".12em", color: "#e8e4dc", lineHeight: 1 }}>
                     BTP Intelligence
                   </div>
                   <div style={{ fontSize: 9, letterSpacing: ".18em", textTransform: "uppercase", color: "#ed6120", marginTop: 1 }}>
@@ -112,7 +112,7 @@ function LoginForm() {
               </div>
 
               <h1 style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
+                fontFamily: "'Rajdhani', system-ui, sans-serif",
                 fontSize: 26,
                 fontWeight: 600,
                 color: "#e8e4dc",
@@ -184,7 +184,7 @@ function LoginForm() {
                   <button
                     type="button"
                     onClick={() => setShowPwd(!showPwd)}
-                    style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#484850", cursor: "pointer", fontSize: 11, fontFamily: "'DM Sans', sans-serif" }}
+                    style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#484850", cursor: "pointer", fontSize: 11, fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     {showPwd ? "Cacher" : "Voir"}
                   </button>
@@ -202,7 +202,7 @@ function LoginForm() {
                   borderRadius: 7,
                   fontSize: 13,
                   fontWeight: 700,
-                  fontFamily: "'DM Sans', sans-serif",
+                  fontFamily: "'Rajdhani', sans-serif",
                   letterSpacing: ".08em",
                   textTransform: "uppercase",
                   color: "#fff",
@@ -236,7 +236,7 @@ function LoginForm() {
           fontSize: 11,
           backdropFilter: "blur(8px)",
         }}>
-          <div style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, color: "#e8e4dc", marginBottom: 6, letterSpacing: ".04em" }}>Comptes de démo</div>
+          <div style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, color: "#e8e4dc", marginBottom: 6, letterSpacing: ".04em" }}>Comptes de démo</div>
           <div style={{ color: "#7a8590", marginBottom: 3 }}>
             Admin → <code style={{ color: "#ed6120", background: "rgba(237,97,32,.1)", padding: "1px 5px", borderRadius: 3, fontSize: 10 }}>admin@unie-btp.com / admin123</code>
           </div>

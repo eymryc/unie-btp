@@ -1,6 +1,5 @@
 "use client";
 
-import BTPBlueprint3D from "@/components/BTPBlueprint3D";
 
 interface Props { onOpenModal: () => void }
 
@@ -21,10 +20,10 @@ export default function Footer({ onOpenModal }: Props) {
   ];
 
   return (
-    <footer style={{ background:"var(--navy)" }} className="border-t border-[rgba(237,97,32,.12)] relative overflow-hidden">
-      <BTPBlueprint3D opacity={0.16} intensity={0.6} className="z-0" />
+    <footer style={{ background:"var(--night)" }} className="border-t border-[rgba(237,97,32,.15)] relative overflow-hidden">
+      <div className="grid-texture" style={{ opacity:.5 }} />
       {/* Main */}
-      <div className="max-w-[1280px] mx-auto px-10 py-20 grid grid-cols-[2fr_1fr_1fr_1fr] gap-[60px] footer-grid">
+      <div className="max-w-[1280px] mx-auto px-10 py-20 grid grid-cols-[2fr_1fr_1fr_1fr] gap-[60px] footer-grid relative z-[1]">
         {/* Brand */}
         <div>
           <button onClick={() => scrollTo("accueil")} className="flex items-center gap-3 mb-6 bg-transparent border-none cursor-pointer">
@@ -35,17 +34,17 @@ export default function Footer({ onOpenModal }: Props) {
               <circle cx="20" cy="20" r="2.5" fill="var(--gold)"/>
             </svg>
             <div className="text-left">
-              <div className="font-['Bebas_Neue'] text-[21px] tracking-[.1em] text-white leading-none">UNIE-BTP</div>
-              <div className="font-['DM_Sans'] text-[9px] tracking-[.15em] text-[--gold] uppercase leading-none mt-0.5">Unis pour construire</div>
+              <div className="font-['Rajdhani'] text-[21px] tracking-[.1em] text-white leading-none">UNIE-BTP</div>
+              <div className="font-['Rajdhani'] text-[9px] tracking-[.15em] text-[--gold] uppercase leading-none mt-0.5">Unis pour construire</div>
             </div>
           </button>
-          <p className="font-['DM_Sans'] text-[14px] leading-[1.8] text-white/35 mb-8 max-w-[280px] text-justify">
+          <p className="font-['Rajdhani'] text-[14px] leading-[1.8] text-white/35 mb-8 max-w-[280px] text-justify">
             L&apos;Union Solidaire des Entrepreneurs de BTP en Côte d&apos;Ivoire. Fondée en 2023, nous œuvrons pour un secteur BTP plus fort, plus équitable et plus prospère.
           </p>
           <div className="flex gap-2.5">
             {["F","Li","Tw"].map((s, i) => (
               <a key={i} href="#" aria-label={["Facebook","LinkedIn","Twitter"][i]}
-                className="w-9 h-9 border border-white/10 rounded-full flex items-center justify-center font-['DM_Sans'] text-[10px] font-bold text-white/40 no-underline transition-all duration-200 hover:border-[--gold] hover:text-[--gold]">
+                className="w-9 h-9 border border-white/10 rounded-full flex items-center justify-center font-['Rajdhani'] text-[10px] font-bold text-white/40 no-underline transition-all duration-200 hover:border-[--gold] hover:text-[--gold]">
                 {s}
               </a>
             ))}
@@ -54,11 +53,11 @@ export default function Footer({ onOpenModal }: Props) {
 
         {/* Navigation */}
         <div>
-          <div className="font-['DM_Sans'] text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-6">Navigation</div>
+          <div className="font-['Rajdhani'] text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-6">Navigation</div>
           <div className="flex flex-col gap-3">
             {nav.map(l => (
               <button key={l.id} onClick={() => scrollTo(l.id)}
-                className="font-['DM_Sans'] text-[14px] text-white/35 bg-transparent border-none cursor-pointer text-left hover:text-[--gold] transition-colors duration-200">
+                className="font-['Rajdhani'] text-[14px] text-white/35 bg-transparent border-none cursor-pointer text-left hover:text-[--gold] transition-colors duration-200">
                 {l.label}
               </button>
             ))}
@@ -67,16 +66,16 @@ export default function Footer({ onOpenModal }: Props) {
 
         {/* Resources */}
         <div>
-          <div className="font-['DM_Sans'] text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-6">Ressources</div>
+          <div className="font-['Rajdhani'] text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-6">Ressources</div>
           <div className="flex flex-col gap-3">
             {resources.map(l => (
               <button key={l.id} onClick={() => scrollTo(l.id)}
-                className="font-['DM_Sans'] text-[14px] text-white/35 bg-transparent border-none cursor-pointer text-left hover:text-[--gold] transition-colors duration-200">
+                className="font-['Rajdhani'] text-[14px] text-white/35 bg-transparent border-none cursor-pointer text-left hover:text-[--gold] transition-colors duration-200">
                 {l.label}
               </button>
             ))}
             <button onClick={onOpenModal}
-              className="font-['DM_Sans'] text-[14px] text-[--gold] bg-transparent border-none cursor-pointer text-left hover:text-[--gold-light] transition-colors duration-200 font-semibold mt-1">
+              className="font-['Rajdhani'] text-[14px] text-[--gold] bg-transparent border-none cursor-pointer text-left hover:text-[--gold-light] transition-colors duration-200 font-semibold mt-1">
               Intégrer UNIE-BTP
             </button>
           </div>
@@ -84,7 +83,7 @@ export default function Footer({ onOpenModal }: Props) {
 
         {/* Contact */}
         <div>
-          <div className="font-['DM_Sans'] text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-6">Contact</div>
+          <div className="font-['Rajdhani'] text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-6">Contact</div>
           <div className="flex flex-col gap-4">
             {[
               { label:"Email", value:"contact@unie-btp.com" },
@@ -92,8 +91,8 @@ export default function Footer({ onOpenModal }: Props) {
               { label:"Localisation", value:"Abidjan, Côte d'Ivoire" },
             ].map(c => (
               <div key={c.label}>
-                <div className="font-['DM_Sans'] text-[11px] text-white/25 mb-0.5">{c.label}</div>
-                <div className="font-['DM_Sans'] text-[14px] text-white/55">{c.value}</div>
+                <div className="font-['Rajdhani'] text-[11px] text-white/25 mb-0.5">{c.label}</div>
+                <div className="font-['Rajdhani'] text-[14px] text-white/55">{c.value}</div>
               </div>
             ))}
           </div>
@@ -102,10 +101,10 @@ export default function Footer({ onOpenModal }: Props) {
 
       {/* Bottom bar */}
       <div className="border-t border-white/[.05] py-6 px-10 max-w-[1280px] mx-auto flex items-center justify-between flex-wrap gap-4">
-        <p className="font-['DM_Sans'] text-[13px] text-white/20">
+        <p className="font-['Rajdhani'] text-[13px] text-white/20">
           © 2024 UNIE-BTP — Union Solidaire des Entrepreneurs de BTP en Côte d&apos;Ivoire. Tous droits réservés.
         </p>
-        <p className="font-['DM_Sans'] text-[13px] text-white/15 italic">
+        <p className="font-['Rajdhani'] text-[13px] text-white/15 italic">
           Unis pour construire, au service du progrès.
         </p>
       </div>

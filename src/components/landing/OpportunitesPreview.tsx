@@ -41,15 +41,15 @@ export default function OpportunitesPreview() {
         <div style={{ textAlign: "center", marginBottom: 56 }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, marginBottom: 16 }}>
             <div style={{ width: 28, height: 1.5, background: "var(--primary, #ed6120)" }} />
-            <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: ".22em", textTransform: "uppercase", color: "var(--primary, #ed6120)" }}>
+            <span style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: ".22em", textTransform: "uppercase", color: "var(--primary, #ed6120)" }}>
               Opportunités actives
             </span>
             <div style={{ width: 28, height: 1.5, background: "var(--primary, #ed6120)" }} />
           </div>
-          <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "clamp(30px,4vw,48px)", fontWeight: 600, color: "#e8e4dc", margin: "0 0 14px", lineHeight: 1.15 }}>
+          <h2 style={{ fontFamily: "'Rajdhani', system-ui, sans-serif", fontSize: "clamp(30px,4vw,48px)", fontWeight: 600, color: "#e8e4dc", margin: "0 0 14px", lineHeight: 1.15 }}>
             Marchés disponibles en ce moment
           </h2>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, color: "rgba(255,255,255,.45)", maxWidth: 520, margin: "0 auto" }}>
+          <p style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: 15, color: "rgba(255,255,255,.45)", maxWidth: 520, margin: "0 auto" }}>
             Aperçu des appels d'offres publiés. Les membres actifs accèdent aux fiches complètes, critères d'éligibilité et analyses stratégiques.
           </p>
         </div>
@@ -86,10 +86,10 @@ export default function OpportunitesPreview() {
                   {/* Complexity dot + funder */}
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
                     <span style={{ width: 7, height: 7, borderRadius: "50%", background: dotColor, display: "inline-block", boxShadow: `0 0 6px ${dotColor}66` }} />
-                    <span style={{ fontSize: 10, color: dotColor, fontFamily: "'DM Sans', sans-serif", letterSpacing: ".06em" }}>{COMPLEXITY_LABELS[opp.complexity]}</span>
+                    <span style={{ fontSize: 10, color: dotColor, fontFamily: "'Rajdhani', sans-serif", letterSpacing: ".06em" }}>{COMPLEXITY_LABELS[opp.complexity]}</span>
                   </div>
 
-                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 500, color: "#e8e4dc", lineHeight: 1.4, marginBottom: 10 }}>
+                  <div style={{ fontFamily: "'Rajdhani', sans-serif", fontSize: 14, fontWeight: 500, color: "#e8e4dc", lineHeight: 1.4, marginBottom: 10 }}>
                     {opp.title}
                   </div>
 
@@ -117,7 +117,7 @@ export default function OpportunitesPreview() {
                     paddingBottom: 8,
                     paddingLeft: 12,
                   }}>
-                    <span style={{ fontSize: 10, color: "rgba(237,97,32,.7)", fontFamily: "'DM Sans', sans-serif", letterSpacing: ".06em" }}>
+                    <span style={{ fontSize: 10, color: "rgba(237,97,32,.7)", fontFamily: "'Rajdhani', sans-serif", letterSpacing: ".06em" }}>
                       🔒 Fiche complète réservée aux membres
                     </span>
                   </div>
@@ -134,7 +134,7 @@ export default function OpportunitesPreview() {
             style={{
               display: "inline-flex", alignItems: "center", gap: 10,
               padding: "13px 32px", background: "var(--primary, #ed6120)",
-              border: "none", borderRadius: 8, fontFamily: "'DM Sans', sans-serif",
+              border: "none", borderRadius: 8, fontFamily: "'Rajdhani', sans-serif",
               fontSize: 13, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase",
               color: "#fff", cursor: "pointer",
               boxShadow: "0 8px 28px rgba(237,97,32,.4)",
@@ -143,7 +143,7 @@ export default function OpportunitesPreview() {
             <span>Accéder à toutes les opportunités</span>
             <span>→</span>
           </button>
-          <div style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,.3)", fontFamily: "'DM Sans', sans-serif" }}>
+          <div style={{ marginTop: 10, fontSize: 12, color: "rgba(255,255,255,.3)", fontFamily: "'Rajdhani', sans-serif" }}>
             Accès réservé aux membres actifs UNIE BTP
           </div>
         </div>

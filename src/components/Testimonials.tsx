@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useRef } from "react";
-import BTPBlueprint3D from "@/components/BTPBlueprint3D";
 const TESTIMONIALS = [
   { quote:"L'UNIE-BTP est une organisation indispensable pour la protection, l'accompagnement et la défense des entreprises du secteur du bâtiment. Leur soutien est inestimable pour le développement de notre secteur.", name:"M. Konan KAN", role:"Président de UNIE-BTP", initials:"KK", color:"var(--gold)" },
   { quote:"Grâce aux formations sur les marchés publics via UNIE-BTP, nous avons pu comprendre et saisir des opportunités d'affaires considérables. C'est un accompagnement qui change véritablement la donne pour les PME.", name:"Participant", role:"Séminaire SIGOMAP", initials:"SP", color:"#2d8a4e" },
@@ -17,14 +16,14 @@ export default function Testimonials({ onOpenModal }: { onOpenModal: () => void 
     return () => obs.disconnect();
   }, []);
   return (
-    <section ref={ref} className="py-[120px] relative overflow-hidden" style={{ background:"var(--navy)" }}>
-      <BTPBlueprint3D opacity={0.18} intensity={0.65} className="z-0" />
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[rgba(237,97,32,.08)] pointer-events-none"/>
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[rgba(237,97,32,.06)] pointer-events-none"/>
+    <section ref={ref} className="py-[120px] relative overflow-hidden" style={{ background:"linear-gradient(135deg,var(--night-2) 0%,var(--night) 100%)" }}>
+      <div className="grid-texture" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-[rgba(237,97,32,.06)] pointer-events-none"/>
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[rgba(237,97,32,.04)] pointer-events-none"/>
       <div className="max-w-[1280px] mx-auto px-10 relative z-[1]">
         <div className="text-center mb-20">
           <p className="reveal text-[11px] font-bold tracking-[.2em] uppercase text-[--gold] mb-4">Ils témoignent</p>
-          <h2 className="reveal font-['Cormorant_Garamond'] font-semibold text-white leading-[1.1]" style={{ fontSize:"clamp(36px,5vw,56px)" }}>
+          <h2 className="reveal font-['Rajdhani'] font-semibold text-white leading-[1.1]" style={{ fontSize:"clamp(36px,5vw,56px)" }}>
             Témoignages de nos membres<br/><span className="text-[--gold] italic">sur UNIE-BTP</span>
           </h2>
         </div>
@@ -33,15 +32,15 @@ export default function Testimonials({ onOpenModal }: { onOpenModal: () => void 
             <div key={t.name}
               className="reveal bg-[rgba(255,255,255,.04)] border border-[rgba(255,255,255,.06)] p-[40px_36px] rounded-sm transition-all duration-350 hover:bg-[rgba(255,255,255,.07)] hover:-translate-y-1 cursor-default"
               style={{ borderLeft:`3px solid ${t.color}`, transitionDelay:`${(i%2)*.1}s` }}>
-              <div className="font-['Cormorant_Garamond'] text-[80px] leading-[.8] mb-5 opacity-50" style={{ color:t.color }}>&ldquo;</div>
-              <p className="font-['Cormorant_Garamond'] text-[20px] italic leading-[1.65] text-white/80 mb-8 text-justify">{t.quote}</p>
+              <div className="font-['Rajdhani'] text-[80px] leading-[.8] mb-5 opacity-50" style={{ color:t.color }}>&ldquo;</div>
+              <p className="font-['Rajdhani'] text-[20px] italic leading-[1.65] text-white/80 mb-8 text-justify">{t.quote}</p>
               <div className="flex items-center gap-4">
                 <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0" style={{ background:`${t.color}20`, border:`1.5px solid ${t.color}50` }}>
-                  <span className="font-['DM_Sans'] text-[13px] font-bold" style={{ color:t.color }}>{t.initials}</span>
+                  <span className="font-['Rajdhani'] text-[13px] font-bold" style={{ color:t.color }}>{t.initials}</span>
                 </div>
                 <div>
-                  <div className="font-['DM_Sans'] text-[14px] font-semibold text-white">{t.name}</div>
-                  <div className="font-['DM_Sans'] text-[12px]" style={{ color:t.color }}>{t.role}</div>
+                  <div className="font-['Rajdhani'] text-[14px] font-semibold text-white">{t.name}</div>
+                  <div className="font-['Rajdhani'] text-[12px]" style={{ color:t.color }}>{t.role}</div>
                 </div>
               </div>
             </div>
