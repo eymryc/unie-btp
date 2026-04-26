@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequestSession } from "@/lib/auth";
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const isMemberPath = pathname.startsWith("/membre");
-  const isAdminPath  = pathname.startsWith("/admin");
+  const isAdminPath = pathname.startsWith("/admin");
 
   if (!isMemberPath && !isAdminPath) return NextResponse.next();
 

@@ -27,15 +27,15 @@ export default function Home() {
       <main>
         <Hero        onOpenModal={open} />
         <About />
-        <Stats />
+        {/* <Stats /> */}
         <Services />
-        <OpportunitesPreview />
-        <Partners   onOpenModal={open} />
+        {/* <OpportunitesPreview /> */}
+        {/* <Partners   onOpenModal={open} /> */}
         <Portfolio  onOpenModal={open} />
-        <Events />
-        <Testimonials onOpenModal={open} />
+        {/* <Events /> */}
+        {/* <Testimonials onOpenModal={open} /> */}
         <FAQ         onOpenModal={open} />
-        <Contact />
+        {/* <Contact /> */}
       </main>
       <Footer onOpenModal={open} />
 

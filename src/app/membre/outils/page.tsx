@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import TopBar from "@/components/platform/TopBar";
 
 interface Guide { id: string; title: string; description: string | null; category: string; fileUrl: string | null; }
+interface TrainingSession { id: string; title: string; details: string; accentColor?: string | null; signupUrl?: string | null; }
 
 const CATEGORY_LABELS: Record<string, { label: string; icon: string; color: string; bg: string }> = {
   checklist: { label: "Checklists",  icon: "☑", color: "#6dd49a", bg: "rgba(46,160,67,.12)" },
@@ -15,11 +16,20 @@ export default function OutilsPage() {
   const [guides, setGuides] = useState<Guide[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+  const [sessions, setSessions] = useState<TrainingSession[]>([]);
+  const [sessionsLoading, setSessionsLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/guides")
       .then((r) => r.json())
       .then((d) => { setGuides(d); setLoading(false); });
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/training-sessions")
+      .then((r) => r.json())
+      .then((d) => { setSessions(d); setSessionsLoading(false); })
+      .catch(() => setSessionsLoading(false));
   }, []);
 
   const filtered = filter === "all" ? guides : guides.filter((g) => g.category === filter);
@@ -111,19 +121,32 @@ export default function OutilsPage() {
       <div style={{ marginTop: 8 }}>
         <div style={{ fontSize: 13, fontWeight: 600, color: "var(--p-gold)", marginBottom: 12 }}>Formations & Sessions</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: 10 }}>
-          {[
-            { title: "Processus appels d'offres BAD", date: "14 mai 2025 · 9h · Présentiel Abidjan", color: "#79b8ff" },
-            { title: "Montage dossier Banque Mondiale", date: "28 mai 2025 · 15h · Webinaire", color: "#6dd49a" },
-            { title: "Accompagnement individuel dossier", date: "Service payant · Cabinet MICENY", color: "var(--p-muted)" },
-          ].map((s) => (
-            <div key={s.title} style={{ background: "var(--p-surface)", border: "0.5px solid var(--p-border)", borderRadius: 10, padding: 14 }}>
-              <div style={{ fontSize: 13, fontWeight: 500, color: "var(--p-text)", marginBottom: 4 }}>{s.title}</div>
-              <div style={{ fontSize: 11, color: s.color, marginBottom: 10 }}>{s.date}</div>
-              <button style={{ padding: "5px 10px", fontSize: 11, background: "rgba(237,97,32,.12)", border: "0.5px solid rgba(237,97,32,.3)", borderRadius: 5, color: "var(--p-gold)", cursor: "pointer" }}>
-                S'inscrire
-              </button>
-            </div>
-          ))}
+          {sessionsLoading ? (
+            <div style={{ color: "var(--p-dim)", fontSize: 12 }}>Chargement…</div>
+          ) : sessions.length === 0 ? (
+            <div style={{ color: "var(--p-dim)", fontSize: 12, padding: "8px 0" }}>Aucune session publiée pour le moment.</div>
+          ) : (
+            sessions.map((s) => (
+              <div key={s.id} style={{ background: "var(--p-surface)", border: "0.5px solid var(--p-border)", borderRadius: 10, padding: 14 }}>
+                <div style={{ fontSize: 13, fontWeight: 500, color: "var(--p-text)", marginBottom: 4 }}>{s.title}</div>
+                <div style={{ fontSize: 11, color: s.accentColor ?? "var(--p-muted)", marginBottom: 10 }}>{s.details}</div>
+                <button
+                  onClick={() => s.signupUrl ? window.open(s.signupUrl, "_blank") : alert("Inscription disponible prochainement.")}
+                  style={{
+                    padding: "5px 10px",
+                    fontSize: 11,
+                    background: "rgba(237,97,32,.12)",
+                    border: "0.5px solid rgba(237,97,32,.3)",
+                    borderRadius: 5,
+                    color: "var(--p-gold)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {s.signupUrl ? "S'inscrire" : "Bientôt"}
+                </button>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

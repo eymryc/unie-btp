@@ -165,6 +165,17 @@ model Guide {
   createdAt   DateTime @default(now())
 }
 
+model TrainingSession {
+  id          String   @id @default(cuid())
+  title       String
+  details     String
+  accentColor String?
+  signupUrl   String?
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Submission {
   id            String      @id @default(cuid())
   userId        String
