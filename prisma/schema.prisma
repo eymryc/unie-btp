@@ -15,12 +15,13 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  company            Company?
-  savedOpportunities SavedOpportunity[]
-  interests          OpportunityInterest[]
-  collaborations     CollaborationMember[]
-  messages           CollaborationMessage[]
-  submissions        Submission[]
+  company                Company?
+  savedOpportunities     SavedOpportunity[]
+  interests              OpportunityInterest[]
+  collaborations         CollaborationMember[]
+  messages               CollaborationMessage[]
+  submissions            Submission[]
+  accompagnementRequests AccompagnementRequest[]
 }
 
 model Company {
@@ -38,7 +39,7 @@ model Company {
   website            String?
   address            String
   city               String
-  country            String @default("Côte d'Ivoire")
+  country            String  @default("Côte d'Ivoire")
   ceoName            String
   ceoEmail           String
   ceoPhone           String
@@ -47,12 +48,28 @@ model Company {
   employees          Int?
   geographicZone     String?
   description        String?
+  availability       String? // "AVAILABLE" | "BUSY" | "PARTIAL"
+  availabilityNote   String?
+  references         String? // JSON array of project references
 
-  subscriptionStatus String   @default("PENDING")
+  subscriptionStatus String    @default("PENDING")
   subscriptionExpiry DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  documents CompanyDocument[]
+}
+
+model CompanyDocument {
+  id        String   @id @default(cuid())
+  companyId String
+  company   Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name      String
+  docType   String   // "registre_commerce" | "reference_projet" | "attestation" | "autre"
+  fileUrl   String?
+  fileName  String?
+  createdAt DateTime @default(now())
 }
 
 model Opportunity {
@@ -82,6 +99,7 @@ model OpportunityInterest {
   id            String      @id @default(cuid())
   userId        String
   opportunityId String
+  level         String      @default("INTERESTED") // "INTERESTED" | "PARTICIPATING"
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
   createdAt     DateTime    @default(now())
@@ -152,10 +170,23 @@ model Submission {
   opportunityId String
   user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   opportunity   Opportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
-  status        String      @default("PREPARING")
-  result        String?
+  status        String      @default("PREPARING") // PREPARING | SUBMITTED | CLOSED
+  result        String?     // WON | LOST | PENDING
   proofUrl      String?
   notes         String?
+  submittedAt   DateTime?
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
+}
+
+model AccompagnementRequest {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  opportunityId String?
+  type        String   // "dossier" | "strategie" | "formation" | "autre"
+  message     String
+  status      String   @default("PENDING") // PENDING | PROCESSING | DONE
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

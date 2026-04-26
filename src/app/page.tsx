@@ -14,6 +14,7 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import RegisterModal from "@/components/RegisterModal";
+import OpportunitesPreview from "@/components/landing/OpportunitesPreview";
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,6 +29,7 @@ export default function Home() {
         <About />
         <Stats />
         <Services />
+        <OpportunitesPreview />
         <Partners   onOpenModal={open} />
         <Portfolio  onOpenModal={open} />
         <Events />

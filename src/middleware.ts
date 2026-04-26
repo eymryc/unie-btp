@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getRequestSession } from "@/lib/auth";
 
-const PUBLIC_PATHS = ["/", "/login"];
-const MEMBER_PATHS = ["/membre"];
-const ADMIN_PATHS = ["/admin"];
-
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  const isMemberPath = MEMBER_PATHS.some((p) => pathname.startsWith(p));
-  const isAdminPath = ADMIN_PATHS.some((p) => pathname.startsWith(p));
+  const isMemberPath = pathname.startsWith("/membre");
+  const isAdminPath  = pathname.startsWith("/admin");
 
   if (!isMemberPath && !isAdminPath) return NextResponse.next();
 
   const session = await getRequestSession(req);
 
+  // Non connecté → login
   if (!session) {
     const url = req.nextUrl.clone();
     url.pathname = "/login";
@@ -22,13 +19,26 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Routes admin → rôle admin requis
   if (isAdminPath && session.role !== "ADMIN" && session.role !== "SUPER_ADMIN") {
     return NextResponse.redirect(new URL("/membre/dashboard", req.url));
   }
 
+  // Membres PENDING → accès limité (seulement attente + profil)
+  if (isMemberPath && session.subscriptionStatus === "PENDING") {
+    const allowed = ["/membre/attente", "/membre/profil"];
+    const isAllowed = allowed.some((p) => pathname.startsWith(p));
+    if (!isAllowed) {
+      return NextResponse.redirect(new URL("/membre/attente", req.url));
+    }
+  }
+
+  // Membres SUSPENDED → profil uniquement
   if (isMemberPath && session.subscriptionStatus === "SUSPENDED") {
-    if (!pathname.startsWith("/membre/profil")) {
-      return NextResponse.redirect(new URL("/membre/profil", req.url));
+    const allowed = ["/membre/attente", "/membre/profil"];
+    const isAllowed = allowed.some((p) => pathname.startsWith(p));
+    if (!isAllowed) {
+      return NextResponse.redirect(new URL("/membre/attente?suspended=1", req.url));
     }
   }
 

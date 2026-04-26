@@ -12,8 +12,11 @@ interface Props {
 
 const MEMBER_NAV: NavItem[] = [
   { href: "/membre/dashboard",      icon: "⊞", label: "Tableau de bord" },
+  { href: "/membre/veille",         icon: "◉", label: "Veille hebdomadaire" },
   { href: "/membre/opportunites",   icon: "◎", label: "Opportunités" },
   { href: "/membre/collaborations", icon: "◈", label: "Collaborations" },
+  { href: "/membre/soumissions",    icon: "◷", label: "Mes soumissions" },
+  { href: "/membre/membres",        icon: "◑", label: "Annuaire membres" },
   { href: "/membre/outils",         icon: "⊡", label: "Outils & Guides" },
   { href: "/membre/profil",         icon: "◻", label: "Mon profil" },
 ];
